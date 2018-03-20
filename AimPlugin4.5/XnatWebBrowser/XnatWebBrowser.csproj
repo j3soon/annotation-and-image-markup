@@ -52,9 +52,35 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\source_cc\ReferencedAssemblies\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="AIM.Annotation">
+      <HintPath>.\AIM.Annotation.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.Common">
+      <HintPath>.\ClearCanvas.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.Desktop">
+      <HintPath>.\ClearCanvas.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.Dicom">
+      <HintPath>.\ClearCanvas.Dicom.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.ImageViewer">
+      <HintPath>.\ClearCanvas.ImageViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.ImageViewer.Common">
+      <HintPath>.\ClearCanvas.ImageViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.ImageViewer.Configuration">
+      <HintPath>.\ClearCanvas.ImageViewer.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="ClearCanvas.ImageViewer.StudyManagement.Core">
+      <HintPath>.\ClearCanvas.ImageViewer.StudyManagement.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GeneralUtilities">
+      <HintPath>.\GeneralUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -130,44 +156,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\source_cc\Common\ClearCanvas.Common.csproj">
-      <Project>{f6ead428-e6cf-4df6-b2f3-d33d532c5343}</Project>
-      <Name>ClearCanvas.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\Desktop\ClearCanvas.Desktop.csproj">
-      <Project>{26e9a01a-64b5-42c5-8252-fbb30df9cec7}</Project>
-      <Name>ClearCanvas.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\Dicom\ClearCanvas.Dicom.csproj">
-      <Project>{ad9ece2b-8268-4115-8dc8-860fbd011fff}</Project>
-      <Name>ClearCanvas.Dicom</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\ImageViewer\ClearCanvas.ImageViewer.csproj">
-      <Project>{85100d3e-471c-47c9-9687-abf25f617ed7}</Project>
-      <Name>ClearCanvas.ImageViewer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\ImageViewer\Common\ClearCanvas.ImageViewer.Common.csproj">
-      <Project>{fefd73c5-8541-47d2-bbdb-ff61dea28291}</Project>
-      <Name>ClearCanvas.ImageViewer.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\ImageViewer\Configuration\ClearCanvas.ImageViewer.Configuration.csproj">
-      <Project>{89df567b-a0d1-456a-a28f-043fd57d7f9a}</Project>
-      <Name>ClearCanvas.ImageViewer.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source_cc\ImageViewer\StudyManagement\Core\ClearCanvas.ImageViewer.StudyManagement.Core.csproj">
-      <Project>{624bc225-49a8-4e92-942d-cdc976292eb9}</Project>
-      <Name>ClearCanvas.ImageViewer.StudyManagement.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AIM.Annotation\AIM.Annotation.csproj">
-      <Project>{7bba1ce8-86ad-4ca3-acee-0bf84f7ce48d}</Project>
-      <Name>AIM.Annotation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GeneralUtilities\GeneralUtilities.csproj">
-      <Project>{96EF8A73-2CAF-4625-BA5F-9FDC685219E5}</Project>
-      <Name>GeneralUtilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\blank.gif" />
