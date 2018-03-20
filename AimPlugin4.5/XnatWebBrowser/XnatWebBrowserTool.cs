@@ -92,7 +92,7 @@ namespace XnatWebBrowser
             var component = new XnatWebBrowserComponent();
 
             ApplicationComponent.LaunchAsWorkspace(Context.DesktopWindow, component, SR.WorkspaceName);
-            component.Url = "https://central.xnat.org/";
+            component.Url = "http://domain.com/";
             component.SetDocumentTitle("XNAT Imaging");
             component.Go();
             component.Stopped += ComponentStopped;
