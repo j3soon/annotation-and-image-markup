@@ -60,6 +60,7 @@ using Segmentation.DICOM;
 using Segmentation.DICOM.Iods;
 using Segmentation.Graphics;
 using Segmentation.Tree;
+using FrameOfReferenceModuleIod = ClearCanvas.Dicom.Iod.Modules.FrameOfReferenceModuleIod;
 using ReferencedSeriesSequenceIod = Segmentation.DICOM.Iods.ReferencedSeriesSequenceIod;
 
 namespace Segmentation
