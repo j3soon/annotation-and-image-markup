@@ -35,6 +35,7 @@ using System;
 using ClearCanvas.Dicom;
 using ClearCanvas.Dicom.Iod.Modules;
 using Segmentation.DICOM.Iods;
+using FrameOfReferenceModuleIod = ClearCanvas.Dicom.Iod.Modules.FrameOfReferenceModuleIod;
 
 namespace Segmentation.DICOM
 {

@@ -1,0 +1,6 @@
+[submodule "ReferencedAssemblies"]
+	path = ReferencedAssemblies
+	url = https://github.com/j3soon/ReferencedAssemblies
+[submodule ".\\source_cc"]
+	path = .\\source_cc
+	url = https://github.com/j3soon/ClearCanvas
