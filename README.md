@@ -82,6 +82,18 @@ Now, we can compile the entire solution directly just by clicking the debug butt
      xerces-c_3_1.dll
      ```
 
+4. Release mode
+
+   When compiling in release mode, errors will occur when clicking the `AIM Data Service 2.0` tab.
+
+   It seems to be the typo in [AimDataService.View.WinForms.csproj
+](AimPlugin4.5/AimDataService/View/WinForms/AimDataService.View.WinForms.csproj).
+
+   ```xml
+   <!--<PlatformTarget>x86</PlatformTarget>-->
+   <PlatformTarget>AnyCPU</PlatformTarget>
+   ```
+
 ## Untested problems
 
 1. x86 and x64 dll dependencies
@@ -95,7 +107,14 @@ Now, we can compile the entire solution directly just by clicking the debug butt
    <SharedPluginFiles Include="$(ProjectDir..\..\..\AimPlugin4.5\AIMReferences\(Configuration)\4.0\x86\AIMLibModel.NET.dll" />
    ```
 
-2. Empty implementations to make TCGA compatible.
+2. Namespace ambiguity in [SegmentationSerializer](AimPlugin4.5\Segmentation\SegmentationSerializer.cs) and [SegmentationDocumentIod](AimPlugin4.5\Segmentation\DICOM\SegmentationDocumentIod.cs).
+
+   ```cs
+   //Added to avoid namespace ambiguity.
+   using FrameOfReferenceModuleIod =  ClearCanvas.Dicom.Iod.Modules. FrameOfReferenceModuleIod;
+   ```
+
+3. Empty implementations to make TCGA compatible in [TcgaSessionManager](AimPlugin4.5/TCGA/TcgaSessionManager.cs).
 
    ```cs
    // The 4 entries below are added to implement the new ISessionManager.
@@ -111,10 +130,10 @@ Now, we can compile the entire solution directly just by clicking the debug butt
    public eventEventHandler<SessionStatusChangedEventArgs>SessionStatusChanged;
    ```
 
-3. Warning in log file.
+4. Warning in log file.
 
    ```
-   WARN  - No audit sink extensions found - Auditing    will be disabled for the remainder of the session.
+   WARN  - No audit sink extensions found - Auditing will be disabled for the remainder of the session.
    ```
 
 Pull requests are welcome.
@@ -146,7 +165,7 @@ The AIM project includes the following.
 It is written in C, C++, Visual C++, Java using XML and ClearCanvas Workstation.
 The goal of Annotation and Image Markup Project is to develop a mechanism, for modeling, capturing, and serializing image annotation and markup data that can be adopted as a standard by the medical imaging community. 
   
-AIM is distrubuted under the BSD 3-Clause License.
+AIM is distributed under the BSD 3-Clause License.
 Please see the NOTICE and LICENSE files for details.
 
 You will find more details about AIM in the following links:
