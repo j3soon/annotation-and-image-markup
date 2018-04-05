@@ -35,6 +35,7 @@ using System;
 using ClearCanvas.Dicom;
 using ClearCanvas.Dicom.Iod.Modules;
 using Segmentation.DICOM.Iods;
+//Added to avoid namespace ambiguity.
 using FrameOfReferenceModuleIod = ClearCanvas.Dicom.Iod.Modules.FrameOfReferenceModuleIod;
 
 namespace Segmentation.DICOM
@@ -62,7 +63,7 @@ namespace Segmentation.DICOM
 		private readonly CommonInstanceReferenceModuleIod _commonInstanceReferenceModule;
 		private readonly SopCommonModuleIod _sopCommonModule;
 		private readonly FrameExtractionModuleIod _frameExtractionModule;
-		
+
 		public SegmentationDocumentIod() : this(new DicomAttributeCollection()) {}
 
 		public SegmentationDocumentIod(IDicomAttributeProvider dicomAttributeProvider)

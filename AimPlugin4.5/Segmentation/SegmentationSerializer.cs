@@ -60,6 +60,7 @@ using Segmentation.DICOM;
 using Segmentation.DICOM.Iods;
 using Segmentation.Graphics;
 using Segmentation.Tree;
+//Added to avoid namespace ambiguity.
 using FrameOfReferenceModuleIod = ClearCanvas.Dicom.Iod.Modules.FrameOfReferenceModuleIod;
 using ReferencedSeriesSequenceIod = Segmentation.DICOM.Iods.ReferencedSeriesSequenceIod;
 
@@ -793,7 +794,7 @@ namespace Segmentation
 		/// </summary>
 		/// <param name="inputName">Name to format, e.g. "John A. Smith" or "Smith, John A."</param>
 		/// <returns>DICOM-formatted name of null</returns>
-		/// <remarks>Most of this logic is bogus but it's "best effort" simple attempt to create a 
+		/// <remarks>Most of this logic is bogus but it's "best effort" simple attempt to create a
 		/// DICOM name without lookup dictionaries or NLP</remarks>
 		private static string FormatDicomName(string inputName)
 		{
