@@ -41,18 +41,19 @@ namespace TCGA
 			}
 		}
 
-	    public void InvalidateSession()
-	    {
-	    }
-
-	    public void TerminateSession()
+		// The 4 entries below are added to implement the new ISessionManager.
+		public void InvalidateSession()
 		{
 		}
 
-	    public SessionStatus SessionStatus { get; }
-	    public event EventHandler<SessionStatusChangedEventArgs> SessionStatusChanged;
+		public void TerminateSession()
+		{
+		}
 
-	    #endregion
+		public SessionStatus SessionStatus { get; }
+		public event EventHandler<SessionStatusChangedEventArgs> SessionStatusChanged;
+
+		#endregion
 
 		private bool Login()
 		{
