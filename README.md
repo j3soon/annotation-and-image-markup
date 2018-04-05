@@ -11,41 +11,113 @@
 
 We use [AimPlugin 4.5][AIMv4.5] to combine with [ClearCanvas 13.2][CC] using Visual Studio 2015.
 
-## Modifications
+## How to compile
 
-1.  Folder hierarchy.
+Since we have used submodules and symbolic links, we should clone it by a sequence of commands.
 
-    The final folder (github repo) hierarchy is shown below.
+Launch a elevated command prompt (with administrator rights) and type the following commands:
 
-    ```
-    Root dir
-    │  [annotation-and-image-markup.git]
-    │
-    ├─ReferencedAssemblies
-    │    [ReferencedAssemblies.git]
-    │
-    └─source_cc
-        [ClearCanvas.git]
-        ReferencedAssemblies (Symbolic Link) <<===>> ..\ReferencedAssemblies
-    ```
+```shell
+git clone https://github.com/j3soon/annotation-and-image-markup.git aim-xnat-cc
+cd aim-xnat-cc
+git submodule update --init --recursive
+cd source_cc
+git config --local core.symlinks true
+git reset HEAD --hard
+cd ..
+```
 
-    > The hierarchy clues are from [AIM's .csproj files][AIMproj] and [ClearCavas's Readme][CCReadme]. We use the following command instead 
-    `path\to\source_cc>mklink /D ReferencedAssemblies ..\ReferencedAssemblies`.
+Open the file `aim-xnat-cc\source_cc\ImageViewer\ImageViewer.sln` and set `ClearCanvas.Desktop.Executable` as the start up project.
+
+Now, we can compile the entire solution directly just by clicking the debug button.
+
+> The logs can bee seen in `aim-xnat-cc\source_cc\Desktop\Executable\bin\Debug\logs\ClearCanvas.Workstation.log`
+
+## Modifications made
+
+1. Folder hierarchy.
+
+   The final folder (github repo) hierarchy is shown below.
+
+   ```
+   Root dir
+   │ [annotation-and-image-markup.git]
+   │
+   ├─ReferencedAssemblies
+   │   [ReferencedAssemblies.git]
+   │
+   └─source_cc
+       [ClearCanvas.git]
+       ReferencedAssemblies (Symbolic Link) <<===>> ..\ReferencedAssemblies
+   ```
+
+   > The hierarchy clues are from [AIM's .csproj files][AIMproj] and [ClearCanvas's Readme][CCReadme]. We use the following command to generate the symbolic link: `path\to\source_cc>mklink /D ReferencedAssemblies ..\ReferencedAssemblies`
 
 2. Connect AIMPlugin4.5 to ClearCanvas
 
-    - Add AIM plugins and their WinForms projects to your ImageViewer solution file.
-    - Make Desktop.Executable project dependent on the newly added plugins.
-    - Build Desktop.Executable. During an initial build, there may be errors related to visibility of some of the ClearCanvas classes. Make the classes in question public and build again.
+   - Add AIM plugins and their WinForms projects to your ImageViewer solution file.
+   - Make Desktop.Executable project dependent on the newly added plugins.
+   - Build Desktop.Executable. During an initial build, there may be errors related to visibility of some of the ClearCanvas classes. Make the classes in question public and build again.
 
-    > The steps are almost the same as the steps in [AIMPlugin4.5's readme][AIMv4.5Readme].
-    Note that there shouldn't be any `.dll` files in the same directory as `ClearCanvas.Desktop.Executable.exe`. (`Copy Local` should be false)
+   > The steps are exactly the same as the steps mentioned in [AIMPlugin4.5's readme][AIMv4.5Readme].
+   Note that there shouldn't be any `.dll` files in the same directory as `ClearCanvas.Desktop.Executable.exe` (`Copy Local` should be False), otherwise, there will be dll conflicts.
 
 3. Additional DLLs
 
-    After the first 2 steps, it should work now. However, in [DicomViewer-13.2.19401.1661-x64][CCbin]'s and [AIM on ClearCanvas® Workstation][AIMbin]'s plugin folder, there are some dlls that aren't included by the 2 steps above. So we also add them to the plugin folder.
+   After the first 2 steps, it should work now. However, in [DicomViewer-13.2.19401.1661-x64][CCbin]'s and [AIM on ClearCanvas® Workstation][AIMbin]'s plugin folder, there are some dlls that aren't included by the 2 steps above. So we also add them to the plugin folder using [PostBuild_dist.proj](source_cc\Desktop\Executable\PostBuild_dist.proj).
 
-Now, we can compile it directly just by one click after cloning this repo. Please submit a pull request if we missed something.
+   - In ClearCanvas but not in compiled:
+     ```
+     ClearCanvas.ImageViewer.Shreds.dll
+     ```
+   - In AIM on ClearCanvas but not in compiled:
+     ```
+     AIMLib.dll
+     AIMLib.NET.dll
+     AIMLibModel.NET.dll
+     AimTmplUtil1923.dll
+     AimTmplUtilV1Rv23V2Rv13.dll
+     TCGA.dll
+     TCGA.View.WinForms.dll
+     xerces-c_3_1.dll
+     ```
+
+## Untested problems
+
+1. x86 and x64 dll dependencies
+
+   The `x86` parts in [PostBuild_dist.proj](source_cc\Desktop\Executable\PostBuild_dist.proj) may be changed in some circumstances.
+
+   ```xml
+   <SharedPluginFiles Include="$(ProjectDir)..\..\..\AIMToolkit_v4.1.0_rv44\source\xercesc-3.1\x86\bin\xerces-c_3_1.dll" />
+   <SharedPluginFiles Include="$(ProjectDir..\..\..\AimPlugin4.5\AIMReferences\(Configuration)\4.0\x86\AIMLib.dll" />
+   <SharedPluginFiles Include="$(ProjectDir..\..\..\AimPlugin4.5\AIMReferences\(Configuration)\4.0\x86\AIMLib.NET.dll" />
+   <SharedPluginFiles Include="$(ProjectDir..\..\..\AimPlugin4.5\AIMReferences\(Configuration)\4.0\x86\AIMLibModel.NET.dll" />
+   ```
+
+2. Empty implementations to make TCGA compatible.
+
+   ```cs
+   // The 4 entries below are added to implement the new ISessionManager.
+   public void InvalidateSession()
+   {
+   }
+
+   public void TerminateSession()
+   {
+   }
+
+   public SessionStatus SessionStatus { get; }
+   public eventEventHandler<SessionStatusChangedEventArgs>SessionStatusChanged;
+   ```
+
+3. Warning in log file.
+
+   ```
+   WARN  - No audit sink extensions found - Auditing    will be disabled for the remainder of the session.
+   ```
+
+Pull requests are welcome.
 
 [AIM]: https://github.com/NCIP/annotation-and-image-markup
 [CC]: https://github.com/ClearCanvas/ClearCanvas
